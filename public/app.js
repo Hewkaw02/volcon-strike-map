@@ -1,6 +1,7 @@
 const state = {
   payload: null,
   selectedSymbol: null,
+  chartMode: "daily",
 };
 
 const els = {
@@ -9,6 +10,9 @@ const els = {
   globalNotice: document.querySelector("#globalNotice"),
   tickerTabs: document.querySelector("#tickerTabs"),
   summaryGrid: document.querySelector("#summaryGrid"),
+  chartTabs: document.querySelector("#chartTabs"),
+  chartSubtitle: document.querySelector("#chartSubtitle"),
+  priceChart: document.querySelector("#priceChart"),
   levelSubtitle: document.querySelector("#levelSubtitle"),
   gammaBadge: document.querySelector("#gammaBadge"),
   levelMap: document.querySelector("#levelMap"),
@@ -40,6 +44,15 @@ function formatGamma(value) {
   if (abs >= 1_000_000) return `$${formatNumber(value / 1_000_000, 1)}M`;
   if (abs >= 1_000) return `$${formatNumber(value / 1_000, 1)}K`;
   return `$${formatNumber(value, 0)}`;
+}
+
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
 }
 
 function classForFreshness(status) {
@@ -82,6 +95,7 @@ function render() {
 
   renderTickerTabs(payload);
   renderTicker(ticker, payload);
+  renderChartTabs();
   renderMethodology(payload);
 }
 
@@ -119,6 +133,7 @@ function renderTicker(ticker, payload) {
   els.gammaBadge.className = classForGamma(ticker.gamma_regime);
 
   renderLevelMap(ticker);
+  renderPriceChart(ticker);
   renderRisks(ticker, payload);
   renderRows(ticker);
 }
@@ -168,6 +183,133 @@ function marker(kind, label, level, left) {
   `;
 }
 
+function renderChartTabs() {
+  els.chartTabs.querySelectorAll(".chart-tab").forEach((button) => {
+    const active = button.dataset.chartMode === state.chartMode;
+    button.classList.toggle("active", active);
+    button.setAttribute("aria-selected", String(active));
+  });
+}
+
+function renderPriceChart(ticker) {
+  const chart = ticker.price_charts?.[state.chartMode] ?? ticker.price_charts?.daily;
+  const bars = (chart?.bars ?? []).filter((bar) => Number.isFinite(Number(bar.close)));
+
+  if (!bars.length) {
+    els.chartSubtitle.textContent = `${ticker.symbol} ${state.chartMode} price bars unavailable`;
+    els.priceChart.innerHTML = '<div class="empty-state">No price bars are available for this ticker.</div>';
+    return;
+  }
+
+  const width = 900;
+  const height = 420;
+  const margin = { top: 24, right: 24, bottom: 42, left: 62 };
+  const innerWidth = width - margin.left - margin.right;
+  const innerHeight = height - margin.top - margin.bottom;
+  const expectedLow = ticker.implied_forward - ticker.expected_move;
+  const expectedHigh = ticker.implied_forward + ticker.expected_move;
+  const priceValues = bars.flatMap((bar) => [
+    Number(bar.low ?? bar.close),
+    Number(bar.high ?? bar.close),
+    Number(bar.close),
+  ]);
+  const overlayValues = [
+    ticker.spot,
+    ticker.put_wall.strike,
+    ticker.pin_strike.strike,
+    ticker.call_wall.strike,
+    expectedLow,
+    expectedHigh,
+  ];
+  const minValue = Math.min(...priceValues, ...overlayValues);
+  const maxValue = Math.max(...priceValues, ...overlayValues);
+  const padding = Math.max((maxValue - minValue) * 0.08, ticker.spot * 0.005, 0.5);
+  const yMin = minValue - padding;
+  const yMax = maxValue + padding;
+  const x = (index) => margin.left + (bars.length === 1 ? innerWidth / 2 : (index / (bars.length - 1)) * innerWidth);
+  const y = (value) => margin.top + ((yMax - value) / Math.max(yMax - yMin, 0.0001)) * innerHeight;
+  const linePath = bars
+    .map((bar, index) => `${index === 0 ? "M" : "L"} ${x(index).toFixed(2)} ${y(Number(bar.close)).toFixed(2)}`)
+    .join(" ");
+  const gridValues = [yMin, (yMin + yMax) / 2, yMax];
+  const startLabel = bars[0]?.time ?? "";
+  const endLabel = bars[bars.length - 1]?.time ?? "";
+  const closeX = x(bars.length - 1);
+  const spotY = y(ticker.spot);
+  const whiskerEvery = state.chartMode === "intraday" ? 3 : 1;
+
+  const grid = gridValues
+    .map(
+      (value) => `
+        <g class="chart-grid">
+          <line x1="${margin.left}" y1="${y(value).toFixed(2)}" x2="${width - margin.right}" y2="${y(value).toFixed(2)}"></line>
+          <text x="${margin.left - 10}" y="${(y(value) + 4).toFixed(2)}">${formatPrice(value)}</text>
+        </g>
+      `
+    )
+    .join("");
+
+  const candles = bars
+    .map((bar, index) => {
+      if (index % whiskerEvery !== 0 && index !== bars.length - 1) return "";
+      const xValue = x(index);
+      const highY = y(Number(bar.high ?? bar.close));
+      const lowY = y(Number(bar.low ?? bar.close));
+      const closeYValue = y(Number(bar.close));
+      return `
+        <g class="chart-candle">
+          <line x1="${xValue.toFixed(2)}" y1="${highY.toFixed(2)}" x2="${xValue.toFixed(2)}" y2="${lowY.toFixed(2)}"></line>
+          <line x1="${(xValue - 3).toFixed(2)}" y1="${closeYValue.toFixed(2)}" x2="${(xValue + 3).toFixed(2)}" y2="${closeYValue.toFixed(2)}"></line>
+        </g>
+      `;
+    })
+    .join("");
+
+  els.chartSubtitle.textContent = `${ticker.symbol} ${chart.label ?? state.chartMode} | latest ${chart.latest_bar_time ?? endLabel} | ${chart.freshness_status ?? ticker.freshness_status}`;
+  els.priceChart.innerHTML = `
+    <svg viewBox="0 0 ${width} ${height}" role="img" aria-label="${escapeHtml(ticker.symbol)} price overlay chart">
+      ${grid}
+      <rect
+        class="expected-band"
+        x="${margin.left}"
+        y="${y(expectedHigh).toFixed(2)}"
+        width="${innerWidth}"
+        height="${Math.max(y(expectedLow) - y(expectedHigh), 2).toFixed(2)}"
+      ></rect>
+      ${levelLine("support", "Put Wall", ticker.put_wall.strike, y, margin, width)}
+      ${levelLine("pin", "Pin", ticker.pin_strike.strike, y, margin, width)}
+      ${levelLine("resistance", "Call Wall", ticker.call_wall.strike, y, margin, width)}
+      ${candles}
+      <path class="chart-price-line" d="${linePath}"></path>
+      <g class="chart-spot">
+        <line x1="${margin.left}" y1="${spotY.toFixed(2)}" x2="${width - margin.right}" y2="${spotY.toFixed(2)}"></line>
+        <circle cx="${closeX.toFixed(2)}" cy="${spotY.toFixed(2)}" r="5"></circle>
+        <text x="${Math.max(margin.left + 86, closeX - 8).toFixed(2)}" y="${(spotY - 12).toFixed(2)}" text-anchor="end">Spot ${formatPrice(ticker.spot)}</text>
+      </g>
+      <g class="chart-axis-labels">
+        <text x="${margin.left}" y="${height - 12}">${escapeHtml(compactTimeLabel(startLabel))}</text>
+        <text x="${width - margin.right}" y="${height - 12}" text-anchor="end">${escapeHtml(compactTimeLabel(endLabel))}</text>
+      </g>
+    </svg>
+  `;
+}
+
+function levelLine(kind, label, value, y, margin, width) {
+  const yValue = y(value);
+  return `
+    <g class="chart-level chart-${kind}">
+      <line x1="${margin.left}" y1="${yValue.toFixed(2)}" x2="${width - margin.right}" y2="${yValue.toFixed(2)}"></line>
+      <text x="${width - margin.right - 6}" y="${(yValue - 6).toFixed(2)}" text-anchor="end">${label} ${formatPrice(value)}</text>
+    </g>
+  `;
+}
+
+function compactTimeLabel(value) {
+  if (!value) return "";
+  if (state.chartMode === "daily") return String(value).slice(0, 10);
+  return String(value).replace("T", " ").slice(11, 16) || String(value);
+}
+
 function renderRisks(ticker, payload) {
   const warnings = [...new Set([...(ticker.warnings ?? []), ...(payload.risk_disclosures ?? [])])].slice(0, 9);
   els.riskCount.textContent = `${ticker.risk_flags.length} flags`;
@@ -212,6 +354,13 @@ function renderMethodology(payload) {
 }
 
 async function init() {
+  els.chartTabs.querySelectorAll(".chart-tab").forEach((button) => {
+    button.addEventListener("click", () => {
+      state.chartMode = button.dataset.chartMode;
+      render();
+    });
+  });
+
   try {
     const response = await fetch("data/latest.json", { cache: "no-store" });
     if (!response.ok) throw new Error(`HTTP ${response.status}`);

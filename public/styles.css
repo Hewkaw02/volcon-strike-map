@@ -240,6 +240,140 @@ h2 {
   padding-bottom: 10px;
 }
 
+.chart-panel {
+  min-height: 0;
+}
+
+.chart-header {
+  align-items: center;
+}
+
+.chart-controls {
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface-2);
+}
+
+.chart-tab {
+  min-width: 104px;
+  min-height: 34px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 760;
+}
+
+.chart-tab:hover,
+.chart-tab:focus-visible {
+  color: var(--text);
+  outline: 2px solid rgba(37, 99, 235, 0.22);
+  outline-offset: 1px;
+}
+
+.chart-tab.active {
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: 0 1px 3px rgba(22, 32, 42, 0.1);
+}
+
+.price-chart {
+  margin: 10px 18px 18px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #fbfcfe;
+}
+
+.price-chart svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.chart-grid line {
+  stroke: #e1e8ef;
+  stroke-width: 1;
+}
+
+.chart-grid text,
+.chart-axis-labels text {
+  fill: var(--muted);
+  font-size: 11px;
+  font-weight: 680;
+}
+
+.expected-band {
+  fill: rgba(37, 99, 235, 0.08);
+  stroke: rgba(37, 99, 235, 0.18);
+  stroke-width: 1;
+}
+
+.chart-candle line {
+  stroke: #7d8c99;
+  stroke-linecap: round;
+  stroke-width: 1.2;
+}
+
+.chart-price-line {
+  fill: none;
+  stroke: #17202a;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2.6;
+}
+
+.chart-level line {
+  stroke-dasharray: 6 6;
+  stroke-width: 1.5;
+}
+
+.chart-level text,
+.chart-spot text {
+  font-size: 11px;
+  font-weight: 820;
+}
+
+.chart-support line,
+.chart-support text {
+  fill: var(--support);
+  stroke: var(--support);
+}
+
+.chart-pin line,
+.chart-pin text {
+  fill: var(--pin);
+  stroke: var(--pin);
+}
+
+.chart-resistance line,
+.chart-resistance text {
+  fill: var(--resistance);
+  stroke: var(--resistance);
+}
+
+.chart-spot circle {
+  fill: var(--surface);
+  stroke: #17202a;
+  stroke-width: 2;
+}
+
+.chart-spot line {
+  stroke: #17202a;
+  stroke-dasharray: 3 5;
+  stroke-width: 1.3;
+}
+
+.chart-spot text {
+  fill: #17202a;
+}
+
 .level-panel {
   min-height: 290px;
 }
@@ -539,6 +673,25 @@ td:last-child {
 
   .summary-grid {
     grid-template-columns: 1fr;
+  }
+
+  .chart-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .chart-controls {
+    width: 100%;
+  }
+
+  .chart-tab {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  .price-chart {
+    margin-right: 12px;
+    margin-left: 12px;
   }
 
   .level-map {

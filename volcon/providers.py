@@ -3,12 +3,13 @@ from __future__ import annotations
 import json
 import math
 import os
-from datetime import date, datetime, timedelta, timezone
+from datetime import date, datetime, time, timedelta, timezone
 from urllib.error import HTTPError
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
+from zoneinfo import ZoneInfo
 
-from .models import OptionContract, UnderlyingQuote
+from .models import OptionContract, PriceBar, UnderlyingQuote
 
 
 def _num(value, default=0.0) -> float:
@@ -30,6 +31,14 @@ def _date(value) -> date:
     if isinstance(value, date):
         return value
     return datetime.strptime(str(value), "%Y-%m-%d").date()
+
+
+def _as_list(value) -> list:
+    if value is None:
+        return []
+    if isinstance(value, list):
+        return value
+    return [value]
 
 
 class ProviderError(RuntimeError):
@@ -88,6 +97,71 @@ class SampleProvider:
                 self._sample_contract(symbol, expiration, strike, "call", base_oi, base_volume, gamma, call_boost)
             )
         return contracts
+
+    def get_daily_history(self, symbol: str, *, days: int = 20, end: date | None = None) -> list[PriceBar]:
+        quote = self.get_quote(symbol)
+        end_date = end or datetime.now(timezone.utc).date()
+        bars: list[PriceBar] = []
+        start_close = quote.spot * 0.965
+        for index in range(days):
+            day = end_date - timedelta(days=days - index - 1)
+            trend = (quote.spot - start_close) * (index / max(days - 1, 1))
+            wave = quote.spot * 0.006 * math.sin(index * 0.8)
+            close = start_close + trend + wave
+            if index == days - 1:
+                close = quote.spot
+            open_price = close * (1 - 0.002 * math.cos(index))
+            high = max(open_price, close) * 1.006
+            low = min(open_price, close) * 0.994
+            bars.append(
+                PriceBar(
+                    symbol=symbol.upper(),
+                    time=day.isoformat(),
+                    open=round(open_price, 4),
+                    high=round(high, 4),
+                    low=round(low, 4),
+                    close=round(close, 4),
+                    volume=1_000_000 + index * 15_000,
+                )
+            )
+        return bars
+
+    def get_intraday_history(
+        self,
+        symbol: str,
+        *,
+        interval: str = "5min",
+        as_of: datetime | None = None,
+    ) -> list[PriceBar]:
+        quote = self.get_quote(symbol)
+        now = as_of or datetime.now(timezone.utc)
+        bar_count = 78 if interval == "5min" else 26
+        minutes = 5 if interval == "5min" else 15
+        session_start = datetime.combine(now.date(), time(9, 30), tzinfo=now.tzinfo)
+        bars: list[PriceBar] = []
+        start_close = quote.spot * 0.985
+        for index in range(bar_count):
+            stamp = session_start + timedelta(minutes=index * minutes)
+            trend = (quote.spot - start_close) * (index / max(bar_count - 1, 1))
+            wave = quote.spot * 0.0025 * math.sin(index * 0.45)
+            close = start_close + trend + wave
+            if index == bar_count - 1:
+                close = quote.spot
+            open_price = close * (1 - 0.0008 * math.cos(index))
+            high = max(open_price, close) * 1.0015
+            low = min(open_price, close) * 0.9985
+            bars.append(
+                PriceBar(
+                    symbol=symbol.upper(),
+                    time=stamp.strftime("%Y-%m-%d %H:%M:%S"),
+                    open=round(open_price, 4),
+                    high=round(high, 4),
+                    low=round(low, 4),
+                    close=round(close, 4),
+                    volume=100_000 + index * 1_250,
+                )
+            )
+        return bars
 
     def _strike_step(self, spot: float) -> float:
         if spot >= 400:
@@ -193,6 +267,46 @@ class TradierProvider:
             raw_options = [raw_options]
         return [self.normalize_option(raw, symbol.upper(), expiration) for raw in raw_options]
 
+    def get_daily_history(self, symbol: str, *, days: int = 20, end: date | None = None) -> list[PriceBar]:
+        end_date = end or datetime.now(timezone.utc).date()
+        start_date = end_date - timedelta(days=max(days * 2, days + 10))
+        payload = self._get_json(
+            "/v1/markets/history",
+            {
+                "symbol": symbol.upper(),
+                "interval": "daily",
+                "start": start_date.isoformat(),
+                "end": end_date.isoformat(),
+            },
+        )
+        return self.normalize_history_payload(payload, symbol.upper())[-days:]
+
+    def get_intraday_history(
+        self,
+        symbol: str,
+        *,
+        interval: str = "5min",
+        as_of: datetime | None = None,
+    ) -> list[PriceBar]:
+        now = as_of or datetime.now(timezone.utc)
+        ny_now = now.astimezone(ZoneInfo("America/New_York")) if now.tzinfo else now.replace(tzinfo=ZoneInfo("America/New_York"))
+        session_start = datetime.combine(ny_now.date(), time(9, 30))
+        session_end = datetime.combine(ny_now.date(), time(16, 0))
+        end_time = min(ny_now.replace(tzinfo=None), session_end)
+        if end_time < session_start:
+            end_time = session_start + timedelta(minutes=5)
+        payload = self._get_json(
+            "/v1/markets/timesales",
+            {
+                "symbol": symbol.upper(),
+                "interval": interval,
+                "start": session_start.strftime("%Y-%m-%d %H:%M"),
+                "end": end_time.strftime("%Y-%m-%d %H:%M"),
+                "session_filter": "open",
+            },
+        )
+        return self.normalize_timesales_payload(payload, symbol.upper())
+
     @staticmethod
     def normalize_option(raw: dict, underlying: str, expiration: date) -> OptionContract:
         greeks = raw.get("greeks") or {}
@@ -226,3 +340,40 @@ class TradierProvider:
             iv=iv if iv > 0 else None,
         )
 
+    @staticmethod
+    def normalize_history_payload(payload: dict, symbol: str) -> list[PriceBar]:
+        days = _as_list(payload.get("history", {}).get("day"))
+        return [
+            PriceBar(
+                symbol=symbol.upper(),
+                time=str(raw.get("date")),
+                open=_num(raw.get("open")),
+                high=_num(raw.get("high")),
+                low=_num(raw.get("low")),
+                close=_num(raw.get("close")),
+                volume=_int(raw.get("volume")),
+            )
+            for raw in days
+        ]
+
+    @staticmethod
+    def normalize_timesales_payload(payload: dict, symbol: str) -> list[PriceBar]:
+        rows = _as_list(payload.get("series", {}).get("data"))
+        bars: list[PriceBar] = []
+        for raw in rows:
+            close = _num(raw.get("close"), _num(raw.get("price")))
+            open_price = _num(raw.get("open"), close)
+            high = _num(raw.get("high"), max(open_price, close))
+            low = _num(raw.get("low"), min(open_price, close))
+            bars.append(
+                PriceBar(
+                    symbol=symbol.upper(),
+                    time=str(raw.get("time")),
+                    open=open_price,
+                    high=high,
+                    low=low,
+                    close=close,
+                    volume=_int(raw.get("volume")),
+                )
+            )
+        return bars

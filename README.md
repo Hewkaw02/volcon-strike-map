@@ -6,9 +6,10 @@ Daily GitHub Pages dashboard for nearest-expiry stock and ETF options concentrat
 
 - Static dashboard in `public/`
 - Python analytics engine in `volcon/`
-- Daily updater in `scripts/update_data.py`
+- Hybrid daily/intraday updater in `scripts/update_data.py`
 - GitHub Actions workflow in `.github/workflows/pages.yml`
 - Public derived JSON in `public/data/latest.json`
+- Price overlay chart comparing bars with put wall, pin strike, call wall, spot, and expected-move band
 
 The dashboard publishes derived analytics only. It does not expose API keys and does not dump full raw option-chain data.
 
@@ -26,9 +27,11 @@ Value: your Tradier API token
 
 The workflow can then be triggered manually from the Actions tab or left to run on schedule.
 
-## Daily Update Rule
+## Hybrid Update Rule
 
-The workflow runs at `22:30 UTC` Monday through Friday, after the U.S. cash-market close. For each ticker it chooses the nearest expiration date that is not earlier than the run date in `America/New_York`.
+The workflow runs every 15 minutes during the broad U.S. cash-market window, plus a `22:30 UTC` Monday-Friday after-close snapshot. GitHub Actions schedules are not guaranteed to fire at the exact minute, so this is near-live public publishing, not tick-by-tick streaming.
+
+For each ticker it chooses the nearest expiration date that is not earlier than the run date in `America/New_York`. The price overlay uses 20 daily bars and current-session 5-minute bars when the provider returns them.
 
 Default universe:
 
@@ -45,6 +48,7 @@ Edit `config/tickers.json` to change the universe.
 - Gamma notional: `gamma * open_interest * contract_size * spot^2 * 0.01`.
 - VolCon score: normalized open interest, volume, absolute gamma notional, and side imbalance.
 - Gamma regime: proxy only, with call gamma treated as positive and put gamma treated as negative.
+- Price overlay: daily 20D and intraday 5-minute bars plotted against put wall, pin strike, call wall, current spot, and expected-move band.
 
 ## Risks
 
@@ -56,6 +60,7 @@ This is an analytics dashboard, not investment advice or an order-generation sys
 - Earnings, dividends, splits, borrow pressure, macro events, and news can override strike-based mean reversion.
 - Negative gamma regimes can turn walls into acceleration levels rather than support/resistance.
 - Market data may be delayed, stale, partial, or subject to provider license restrictions.
+- Near-live GitHub Pages output can lag provider data because Actions schedules queue and the static site must redeploy.
 - Public redistribution rights depend on the provider contract; confirm your provider terms before publishing live data.
 
 ## Local Development
@@ -74,4 +79,3 @@ Serve the dashboard locally:
 ```
 
 Open `http://localhost:8000`.
-

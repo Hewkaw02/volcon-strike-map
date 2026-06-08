@@ -24,6 +24,7 @@ RISK_DISCLOSURES = [
     "Dealer gamma regime is a proxy estimated from public chain data, not an observed dealer book.",
     "Earnings, dividends, splits, borrow pressure, macro events, and breaking news can invalidate strike-based mean reversion.",
     "Market data may be delayed, stale, partial, or subject to provider license restrictions.",
+    "Price overlay bars are near-live snapshots from scheduled updates, not tick-by-tick streaming data.",
     "Negative gamma regimes can turn walls into acceleration levels instead of support/resistance.",
 ]
 
@@ -55,6 +56,38 @@ def select_provider():
     return SampleProvider(), "sample_fallback"
 
 
+def _chart_from_bars(label: str, interval: str, bars: list, source_mode: str) -> dict:
+    freshness_status = "failed" if not bars else "sample" if source_mode == "sample_fallback" else "fresh"
+    return {
+        "label": label,
+        "interval": interval,
+        "source_mode": source_mode,
+        "freshness_status": freshness_status,
+        "latest_bar_time": bars[-1].time if bars else None,
+        "bars": [asdict(bar) for bar in bars],
+    }
+
+
+def _empty_chart(label: str, interval: str, source_mode: str) -> dict:
+    return {
+        "label": label,
+        "interval": interval,
+        "source_mode": source_mode,
+        "freshness_status": "failed",
+        "latest_bar_time": None,
+        "bars": [],
+    }
+
+
+def build_price_charts(provider, symbol: str, source_mode: str) -> dict:
+    daily = provider.get_daily_history(symbol, days=20)
+    intraday = provider.get_intraday_history(symbol, interval="5min")
+    return {
+        "daily": _chart_from_bars("Daily 20D", "daily", daily, source_mode),
+        "intraday": _chart_from_bars("Intraday 5m", "5min", intraday, source_mode),
+    }
+
+
 def build_payload(config: dict) -> dict:
     timezone_name = config.get("timezone", "America/New_York")
     now = datetime.now(ZoneInfo(timezone_name))
@@ -82,6 +115,15 @@ def build_payload(config: dict) -> dict:
             if source_mode == "sample_fallback":
                 analysis.risk_flags.append("sample_data")
                 analysis.warnings.append("No TRADIER_TOKEN secret is configured; this ticker uses deterministic sample data.")
+            try:
+                analysis.price_charts = build_price_charts(provider, symbol, source_mode)
+            except (ProviderError, ValueError, OSError) as exc:
+                analysis.price_charts = {
+                    "daily": _empty_chart("Daily 20D", "daily", source_mode),
+                    "intraday": _empty_chart("Intraday 5m", "5min", source_mode),
+                }
+                analysis.risk_flags.append("price_chart_failed")
+                analysis.warnings.append(f"Price chart data failed for {symbol}: {exc}")
             tickers.append(analysis.to_dict())
         except (ProviderError, ValueError, OSError) as exc:
             failures.append(
@@ -112,6 +154,7 @@ def build_payload(config: dict) -> dict:
             "cdf": "CDF below strike is estimated from Black-Scholes d2 under the option-implied distribution proxy.",
             "volcon_score": "Weighted score from normalized OI, volume, absolute gamma notional, and side imbalance.",
             "gamma_regime": "Proxy only: call gamma notional positive, put gamma notional negative.",
+            "price_overlay": "Daily 20D and intraday 5-minute bars are overlaid with put wall, pin strike, call wall, spot, and expected-move band.",
             "publishing_policy": "Public output contains derived analytics, not full raw option-chain dumps.",
         },
         "risk_disclosures": RISK_DISCLOSURES,

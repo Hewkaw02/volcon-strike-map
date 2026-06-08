@@ -30,4 +30,8 @@ def test_update_data_script_runs_from_repo_root(tmp_path):
     payload = json.loads(output.read_text(encoding="utf-8"))
     assert payload["source_mode"] == "sample_fallback"
     assert payload["tickers"]
-
+    charts = payload["tickers"][0]["price_charts"]
+    assert charts["daily"]["interval"] == "daily"
+    assert charts["intraday"]["interval"] == "5min"
+    assert charts["daily"]["bars"]
+    assert charts["intraday"]["bars"]

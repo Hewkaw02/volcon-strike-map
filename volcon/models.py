@@ -41,6 +41,17 @@ class OptionContract:
 
 
 @dataclass
+class PriceBar:
+    symbol: str
+    time: str
+    open: float
+    high: float
+    low: float
+    close: float
+    volume: int
+
+
+@dataclass
 class StrikeLevel:
     strike: float
     cdf_below: float
@@ -77,7 +88,7 @@ class TickerAnalytics:
     levels: list[StrikeLevel]
     risk_flags: list[str]
     warnings: list[str]
+    price_charts: dict[str, Any] = field(default_factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         return asdict(self)
-

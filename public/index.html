@@ -26,6 +26,23 @@
       <section class="dashboard-grid">
         <div class="primary-column">
           <section id="summaryGrid" class="summary-grid" aria-label="Ticker summary"></section>
+          <section class="panel chart-panel">
+            <div class="panel-header chart-header">
+              <div>
+                <h2>Price Overlay Chart</h2>
+                <p id="chartSubtitle">Select a ticker</p>
+              </div>
+              <div id="chartTabs" class="chart-controls" role="tablist" aria-label="Price chart timeframe">
+                <button type="button" class="chart-tab active" data-chart-mode="daily" role="tab" aria-selected="true">
+                  Daily 20D
+                </button>
+                <button type="button" class="chart-tab" data-chart-mode="intraday" role="tab" aria-selected="false">
+                  Intraday 5m
+                </button>
+              </div>
+            </div>
+            <div id="priceChart" class="price-chart" aria-label="Price chart comparing price to option levels"></div>
+          </section>
           <section class="panel level-panel">
             <div class="panel-header">
               <div>
@@ -87,4 +104,3 @@
     <script src="app.js"></script>
   </body>
 </html>
-
