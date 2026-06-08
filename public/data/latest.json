@@ -1,0 +1,1529 @@
+{
+  "as_of": "2026-06-08",
+  "expiry_rule": "nearest_non_expired",
+  "failures": [],
+  "freshness_status": "sample",
+  "generated_at": "2026-06-08T01:06:17.984577-04:00",
+  "methodology": {
+    "cdf": "CDF below strike is estimated from Black-Scholes d2 under the option-implied distribution proxy.",
+    "forward": "ATM put-call parity proxy: F = K + call_mid - put_mid; falls back to spot if unavailable.",
+    "gamma_regime": "Proxy only: call gamma notional positive, put gamma notional negative.",
+    "publishing_policy": "Public output contains derived analytics, not full raw option-chain dumps.",
+    "volcon_score": "Weighted score from normalized OI, volume, absolute gamma notional, and side imbalance."
+  },
+  "references": [
+    {
+      "label": "Tradier options chain endpoint",
+      "url": "https://docs.tradier.com/reference/brokerage-api-markets-get-options-chains"
+    },
+    {
+      "label": "GitHub Pages custom workflows",
+      "url": "https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages"
+    },
+    {
+      "label": "Breeden-Litzenberger option-implied distribution",
+      "url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2642349"
+    }
+  ],
+  "risk_disclosures": [
+    "This dashboard is analytics only and is not investment advice.",
+    "Open interest is usually prior clearing data and does not prove fresh opening flow.",
+    "Volume does not reveal opening versus closing flow without later OI comparison.",
+    "Dealer gamma regime is a proxy estimated from public chain data, not an observed dealer book.",
+    "Earnings, dividends, splits, borrow pressure, macro events, and breaking news can invalidate strike-based mean reversion.",
+    "Market data may be delayed, stale, partial, or subject to provider license restrictions.",
+    "Negative gamma regimes can turn walls into acceleration levels instead of support/resistance."
+  ],
+  "schema_version": "1.0.0",
+  "source_mode": "sample_fallback",
+  "tickers": [
+    {
+      "as_of": "2026-06-08",
+      "atm_iv": 0.243,
+      "call_wall": {
+        "abs_gamma_notional": 239318640.0,
+        "call_oi": 6210,
+        "call_volume": 1368,
+        "cdf_below": 0.6334,
+        "iv": 0.2415,
+        "net_gamma_proxy": 127319760.0,
+        "put_oi": 1897,
+        "put_volume": 418,
+        "sigma_distance": 0.328,
+        "strike": 605.0,
+        "tags": [
+          "call_wall",
+          "resistance_candidate"
+        ],
+        "total_oi": 8107,
+        "total_volume": 1786,
+        "volcon_score": 67.87
+      },
+      "dte_days": 4,
+      "expected_move": 15.263,
+      "freshness_status": "sample",
+      "gamma_regime": "mixed",
+      "implied_forward": 600.0,
+      "levels": [
+        {
+          "abs_gamma_notional": 378000000.0,
+          "call_oi": 5250,
+          "call_volume": 1125,
+          "cdf_below": 0.505,
+          "iv": 0.24,
+          "net_gamma_proxy": 0.0,
+          "put_oi": 5250,
+          "put_volume": 1125,
+          "sigma_distance": 0.0,
+          "strike": 600.0,
+          "tags": [
+            "pin_strike"
+          ],
+          "total_oi": 10500,
+          "total_volume": 2250,
+          "volcon_score": 80.0
+        },
+        {
+          "abs_gamma_notional": 239318640.0,
+          "call_oi": 1897,
+          "call_volume": 418,
+          "cdf_below": 0.3751,
+          "iv": 0.2415,
+          "net_gamma_proxy": -127319760.0,
+          "put_oi": 6210,
+          "put_volume": 1368,
+          "sigma_distance": -0.331,
+          "strike": 595.0,
+          "tags": [
+            "put_wall",
+            "support_candidate"
+          ],
+          "total_oi": 8107,
+          "total_volume": 1786,
+          "volcon_score": 67.87
+        },
+        {
+          "abs_gamma_notional": 239318640.0,
+          "call_oi": 6210,
+          "call_volume": 1368,
+          "cdf_below": 0.6334,
+          "iv": 0.2415,
+          "net_gamma_proxy": 127319760.0,
+          "put_oi": 1897,
+          "put_volume": 418,
+          "sigma_distance": 0.328,
+          "strike": 605.0,
+          "tags": [
+            "call_wall",
+            "resistance_candidate"
+          ],
+          "total_oi": 8107,
+          "total_volume": 1786,
+          "volcon_score": 67.87
+        },
+        {
+          "abs_gamma_notional": 146188800.0,
+          "call_oi": 1485,
+          "call_volume": 341,
+          "cdf_below": 0.2585,
+          "iv": 0.243,
+          "net_gamma_proxy": -77760000.0,
+          "put_oi": 4860,
+          "put_volume": 1116,
+          "sigma_distance": -0.661,
+          "strike": 590.0,
+          "tags": [],
+          "total_oi": 6345,
+          "total_volume": 1457,
+          "volcon_score": 52.02
+        },
+        {
+          "abs_gamma_notional": 146188800.0,
+          "call_oi": 4860,
+          "call_volume": 1116,
+          "cdf_below": 0.7462,
+          "iv": 0.243,
+          "net_gamma_proxy": 77760000.0,
+          "put_oi": 1485,
+          "put_volume": 341,
+          "sigma_distance": 0.65,
+          "strike": 610.0,
+          "tags": [],
+          "total_oi": 6345,
+          "total_volume": 1457,
+          "volcon_score": 52.02
+        },
+        {
+          "abs_gamma_notional": 75877920.0,
+          "call_oi": 1072,
+          "call_volume": 264,
+          "cdf_below": 0.1644,
+          "iv": 0.2445,
+          "net_gamma_proxy": -40373280.0,
+          "put_oi": 3510,
+          "put_volume": 864,
+          "sigma_distance": -0.989,
+          "strike": 585.0,
+          "tags": [
+            "lower_tail"
+          ],
+          "total_oi": 4582,
+          "total_volume": 1128,
+          "volcon_score": 38.28
+        },
+        {
+          "abs_gamma_notional": 75877920.0,
+          "call_oi": 3510,
+          "call_volume": 864,
+          "cdf_below": 0.8358,
+          "iv": 0.2445,
+          "net_gamma_proxy": 40373280.0,
+          "put_oi": 1072,
+          "put_volume": 264,
+          "sigma_distance": 0.965,
+          "strike": 615.0,
+          "tags": [
+            "upper_tail"
+          ],
+          "total_oi": 4582,
+          "total_volume": 1128,
+          "volcon_score": 38.28
+        }
+      ],
+      "pin_strike": {
+        "abs_gamma_notional": 378000000.0,
+        "call_oi": 5250,
+        "call_volume": 1125,
+        "cdf_below": 0.505,
+        "iv": 0.24,
+        "net_gamma_proxy": 0.0,
+        "put_oi": 5250,
+        "put_volume": 1125,
+        "sigma_distance": 0.0,
+        "strike": 600.0,
+        "tags": [
+          "pin_strike"
+        ],
+        "total_oi": 10500,
+        "total_volume": 2250,
+        "volcon_score": 80.0
+      },
+      "put_wall": {
+        "abs_gamma_notional": 239318640.0,
+        "call_oi": 1897,
+        "call_volume": 418,
+        "cdf_below": 0.3751,
+        "iv": 0.2415,
+        "net_gamma_proxy": -127319760.0,
+        "put_oi": 6210,
+        "put_volume": 1368,
+        "sigma_distance": -0.331,
+        "strike": 595.0,
+        "tags": [
+          "put_wall",
+          "support_candidate"
+        ],
+        "total_oi": 8107,
+        "total_volume": 1786,
+        "volcon_score": 67.87
+      },
+      "risk_flags": [
+        "dealer_gamma_proxy",
+        "oi_lag",
+        "sample_data"
+      ],
+      "selected_expiry": "2026-06-12",
+      "source_mode": "sample_fallback",
+      "spot": 600.0,
+      "symbol": "SPY",
+      "warnings": [
+        "Analytics only; not investment advice, trade execution, or risk management for live orders.",
+        "Open interest is usually prior clearing data and does not prove fresh opening flow.",
+        "Dealer gamma sign is estimated from public chain data and can be wrong.",
+        "Earnings, dividends, splits, borrow pressure, macro events, and news can override strike-based mean reversion.",
+        "Negative gamma regimes can turn walls into acceleration levels rather than rejection zones.",
+        "No TRADIER_TOKEN secret is configured; this ticker uses deterministic sample data."
+      ]
+    },
+    {
+      "as_of": "2026-06-08",
+      "atm_iv": 0.2434,
+      "call_wall": {
+        "abs_gamma_notional": 186735016.6,
+        "call_oi": 6210,
+        "call_volume": 1368,
+        "cdf_below": 0.6494,
+        "iv": 0.2417,
+        "net_gamma_proxy": 99344779.4,
+        "put_oi": 1897,
+        "put_volume": 418,
+        "sigma_distance": 0.371,
+        "strike": 535.0,
+        "tags": [
+          "call_wall",
+          "resistance_candidate"
+        ],
+        "total_oi": 8107,
+        "total_volume": 1786,
+        "volcon_score": 67.87
+      },
+      "dte_days": 4,
+      "expected_move": 13.5043,
+      "freshness_status": "sample",
+      "gamma_regime": "mixed",
+      "implied_forward": 530.0,
+      "levels": [
+        {
+          "abs_gamma_notional": 294945000.0,
+          "call_oi": 5250,
+          "call_volume": 1125,
+          "cdf_below": 0.505,
+          "iv": 0.24,
+          "net_gamma_proxy": 0.0,
+          "put_oi": 5250,
+          "put_volume": 1125,
+          "sigma_distance": 0.0,
+          "strike": 530.0,
+          "tags": [
+            "pin_strike"
+          ],
+          "total_oi": 10500,
+          "total_volume": 2250,
+          "volcon_score": 80.0
+        },
+        {
+          "abs_gamma_notional": 186735016.6,
+          "call_oi": 1897,
+          "call_volume": 418,
+          "cdf_below": 0.3587,
+          "iv": 0.2417,
+          "net_gamma_proxy": -99344779.4,
+          "put_oi": 6210,
+          "put_volume": 1368,
+          "sigma_distance": -0.375,
+          "strike": 525.0,
+          "tags": [
+            "put_wall",
+            "support_candidate"
+          ],
+          "total_oi": 8107,
+          "total_volume": 1786,
+          "volcon_score": 67.87
+        },
+        {
+          "abs_gamma_notional": 186735016.6,
+          "call_oi": 6210,
+          "call_volume": 1368,
+          "cdf_below": 0.6494,
+          "iv": 0.2417,
+          "net_gamma_proxy": 99344779.4,
+          "put_oi": 1897,
+          "put_volume": 418,
+          "sigma_distance": 0.371,
+          "strike": 535.0,
+          "tags": [
+            "call_wall",
+            "resistance_candidate"
+          ],
+          "total_oi": 8107,
+          "total_volume": 1786,
+          "volcon_score": 67.87
+        },
+        {
+          "abs_gamma_notional": 114067872.0,
+          "call_oi": 1485,
+          "call_volume": 341,
+          "cdf_below": 0.2312,
+          "iv": 0.2434,
+          "net_gamma_proxy": -60674400.0,
+          "put_oi": 4860,
+          "put_volume": 1116,
+          "sigma_distance": -0.748,
+          "strike": 520.0,
+          "tags": [
+            "lower_tail"
+          ],
+          "total_oi": 6345,
+          "total_volume": 1457,
+          "volcon_score": 52.02
+        },
+        {
+          "abs_gamma_notional": 114067872.0,
+          "call_oi": 4860,
+          "call_volume": 1116,
+          "cdf_below": 0.7723,
+          "iv": 0.2434,
+          "net_gamma_proxy": 60674400.0,
+          "put_oi": 1485,
+          "put_volume": 341,
+          "sigma_distance": 0.734,
+          "strike": 540.0,
+          "tags": [
+            "upper_tail"
+          ],
+          "total_oi": 6345,
+          "total_volume": 1457,
+          "volcon_score": 52.02
+        },
+        {
+          "abs_gamma_notional": 59205854.8,
+          "call_oi": 1072,
+          "call_volume": 264,
+          "cdf_below": 0.1343,
+          "iv": 0.2451,
+          "net_gamma_proxy": -31502373.2,
+          "put_oi": 3510,
+          "put_volume": 864,
+          "sigma_distance": -1.119,
+          "strike": 515.0,
+          "tags": [
+            "lower_tail"
+          ],
+          "total_oi": 4582,
+          "total_volume": 1128,
+          "volcon_score": 38.28
+        },
+        {
+          "abs_gamma_notional": 59205854.8,
+          "call_oi": 3510,
+          "call_volume": 864,
+          "cdf_below": 0.8645,
+          "iv": 0.2451,
+          "net_gamma_proxy": 31502373.2,
+          "put_oi": 1072,
+          "put_volume": 264,
+          "sigma_distance": 1.088,
+          "strike": 545.0,
+          "tags": [
+            "upper_tail"
+          ],
+          "total_oi": 4582,
+          "total_volume": 1128,
+          "volcon_score": 38.28
+        }
+      ],
+      "pin_strike": {
+        "abs_gamma_notional": 294945000.0,
+        "call_oi": 5250,
+        "call_volume": 1125,
+        "cdf_below": 0.505,
+        "iv": 0.24,
+        "net_gamma_proxy": 0.0,
+        "put_oi": 5250,
+        "put_volume": 1125,
+        "sigma_distance": 0.0,
+        "strike": 530.0,
+        "tags": [
+          "pin_strike"
+        ],
+        "total_oi": 10500,
+        "total_volume": 2250,
+        "volcon_score": 80.0
+      },
+      "put_wall": {
+        "abs_gamma_notional": 186735016.6,
+        "call_oi": 1897,
+        "call_volume": 418,
+        "cdf_below": 0.3587,
+        "iv": 0.2417,
+        "net_gamma_proxy": -99344779.4,
+        "put_oi": 6210,
+        "put_volume": 1368,
+        "sigma_distance": -0.375,
+        "strike": 525.0,
+        "tags": [
+          "put_wall",
+          "support_candidate"
+        ],
+        "total_oi": 8107,
+        "total_volume": 1786,
+        "volcon_score": 67.87
+      },
+      "risk_flags": [
+        "dealer_gamma_proxy",
+        "oi_lag",
+        "sample_data"
+      ],
+      "selected_expiry": "2026-06-12",
+      "source_mode": "sample_fallback",
+      "spot": 530.0,
+      "symbol": "QQQ",
+      "warnings": [
+        "Analytics only; not investment advice, trade execution, or risk management for live orders.",
+        "Open interest is usually prior clearing data and does not prove fresh opening flow.",
+        "Dealer gamma sign is estimated from public chain data and can be wrong.",
+        "Earnings, dividends, splits, borrow pressure, macro events, and news can override strike-based mean reversion.",
+        "Negative gamma regimes can turn walls into acceleration levels rather than rejection zones.",
+        "No TRADIER_TOKEN secret is configured; this ticker uses deterministic sample data."
+      ]
+    },
+    {
+      "as_of": "2026-06-08",
+      "atm_iv": 0.2443,
+      "call_wall": {
+        "abs_gamma_notional": 29316533.4,
+        "call_oi": 6210,
+        "call_volume": 1368,
+        "cdf_below": 0.6842,
+        "iv": 0.2421,
+        "net_gamma_proxy": 15596670.6,
+        "put_oi": 1897,
+        "put_volume": 418,
+        "sigma_distance": 0.467,
+        "strike": 212.5,
+        "tags": [
+          "call_wall",
+          "resistance_candidate"
+        ],
+        "total_oi": 8107,
+        "total_volume": 1786,
+        "volcon_score": 67.87
+      },
+      "dte_days": 4,
+      "expected_move": 5.3703,
+      "freshness_status": "sample",
+      "gamma_regime": "mixed",
+      "implied_forward": 210.0,
+      "levels": [
+        {
+          "abs_gamma_notional": 46305000.0,
+          "call_oi": 5250,
+          "call_volume": 1125,
+          "cdf_below": 0.505,
+          "iv": 0.24,
+          "net_gamma_proxy": 0.0,
+          "put_oi": 5250,
+          "put_volume": 1125,
+          "sigma_distance": 0.0,
+          "strike": 210.0,
+          "tags": [
+            "pin_strike"
+          ],
+          "total_oi": 10500,
+          "total_volume": 2250,
+          "volcon_score": 80.0
+        },
+        {
+          "abs_gamma_notional": 29316533.4,
+          "call_oi": 1897,
+          "call_volume": 418,
+          "cdf_below": 0.3228,
+          "iv": 0.2421,
+          "net_gamma_proxy": -15596670.6,
+          "put_oi": 6210,
+          "put_volume": 1368,
+          "sigma_distance": -0.472,
+          "strike": 207.5,
+          "tags": [
+            "put_wall",
+            "support_candidate"
+          ],
+          "total_oi": 8107,
+          "total_volume": 1786,
+          "volcon_score": 67.87
+        },
+        {
+          "abs_gamma_notional": 29316533.4,
+          "call_oi": 6210,
+          "call_volume": 1368,
+          "cdf_below": 0.6842,
+          "iv": 0.2421,
+          "net_gamma_proxy": 15596670.6,
+          "put_oi": 1897,
+          "put_volume": 418,
+          "sigma_distance": 0.467,
+          "strike": 212.5,
+          "tags": [
+            "call_wall",
+            "resistance_candidate"
+          ],
+          "total_oi": 8107,
+          "total_volume": 1786,
+          "volcon_score": 67.87
+        },
+        {
+          "abs_gamma_notional": 17908128.0,
+          "call_oi": 1485,
+          "call_volume": 341,
+          "cdf_below": 0.1763,
+          "iv": 0.2443,
+          "net_gamma_proxy": -9525600.0,
+          "put_oi": 4860,
+          "put_volume": 1116,
+          "sigma_distance": -0.942,
+          "strike": 205.0,
+          "tags": [
+            "lower_tail"
+          ],
+          "total_oi": 6345,
+          "total_volume": 1457,
+          "volcon_score": 52.02
+        },
+        {
+          "abs_gamma_notional": 17908128.0,
+          "call_oi": 4860,
+          "call_volume": 1116,
+          "cdf_below": 0.8246,
+          "iv": 0.2443,
+          "net_gamma_proxy": 9525600.0,
+          "put_oi": 1485,
+          "put_volume": 341,
+          "sigma_distance": 0.92,
+          "strike": 215.0,
+          "tags": [
+            "upper_tail"
+          ],
+          "total_oi": 6345,
+          "total_volume": 1457,
+          "volcon_score": 52.02
+        },
+        {
+          "abs_gamma_notional": 9295045.2,
+          "call_oi": 1072,
+          "call_volume": 264,
+          "cdf_below": 0.0812,
+          "iv": 0.2464,
+          "net_gamma_proxy": -4945726.8,
+          "put_oi": 3510,
+          "put_volume": 864,
+          "sigma_distance": -1.41,
+          "strike": 202.5,
+          "tags": [
+            "lower_tail"
+          ],
+          "total_oi": 4582,
+          "total_volume": 1128,
+          "volcon_score": 38.28
+        },
+        {
+          "abs_gamma_notional": 9295045.2,
+          "call_oi": 3510,
+          "call_volume": 864,
+          "cdf_below": 0.9152,
+          "iv": 0.2464,
+          "net_gamma_proxy": 4945726.8,
+          "put_oi": 1072,
+          "put_volume": 264,
+          "sigma_distance": 1.36,
+          "strike": 217.5,
+          "tags": [
+            "upper_tail"
+          ],
+          "total_oi": 4582,
+          "total_volume": 1128,
+          "volcon_score": 38.28
+        }
+      ],
+      "pin_strike": {
+        "abs_gamma_notional": 46305000.0,
+        "call_oi": 5250,
+        "call_volume": 1125,
+        "cdf_below": 0.505,
+        "iv": 0.24,
+        "net_gamma_proxy": 0.0,
+        "put_oi": 5250,
+        "put_volume": 1125,
+        "sigma_distance": 0.0,
+        "strike": 210.0,
+        "tags": [
+          "pin_strike"
+        ],
+        "total_oi": 10500,
+        "total_volume": 2250,
+        "volcon_score": 80.0
+      },
+      "put_wall": {
+        "abs_gamma_notional": 29316533.4,
+        "call_oi": 1897,
+        "call_volume": 418,
+        "cdf_below": 0.3228,
+        "iv": 0.2421,
+        "net_gamma_proxy": -15596670.6,
+        "put_oi": 6210,
+        "put_volume": 1368,
+        "sigma_distance": -0.472,
+        "strike": 207.5,
+        "tags": [
+          "put_wall",
+          "support_candidate"
+        ],
+        "total_oi": 8107,
+        "total_volume": 1786,
+        "volcon_score": 67.87
+      },
+      "risk_flags": [
+        "dealer_gamma_proxy",
+        "oi_lag",
+        "sample_data"
+      ],
+      "selected_expiry": "2026-06-12",
+      "source_mode": "sample_fallback",
+      "spot": 210.0,
+      "symbol": "IWM",
+      "warnings": [
+        "Analytics only; not investment advice, trade execution, or risk management for live orders.",
+        "Open interest is usually prior clearing data and does not prove fresh opening flow.",
+        "Dealer gamma sign is estimated from public chain data and can be wrong.",
+        "Earnings, dividends, splits, borrow pressure, macro events, and news can override strike-based mean reversion.",
+        "Negative gamma regimes can turn walls into acceleration levels rather than rejection zones.",
+        "No TRADIER_TOKEN secret is configured; this ticker uses deterministic sample data."
+      ]
+    },
+    {
+      "as_of": "2026-06-08",
+      "atm_iv": 0.2445,
+      "call_wall": {
+        "abs_gamma_notional": 26590960.0,
+        "call_oi": 6210,
+        "call_volume": 1368,
+        "cdf_below": 0.6924,
+        "iv": 0.2422,
+        "net_gamma_proxy": 14146640.0,
+        "put_oi": 1897,
+        "put_volume": 418,
+        "sigma_distance": 0.49,
+        "strike": 202.5,
+        "tags": [
+          "call_wall",
+          "resistance_candidate"
+        ],
+        "total_oi": 8107,
+        "total_volume": 1786,
+        "volcon_score": 67.87
+      },
+      "dte_days": 4,
+      "expected_move": 5.1191,
+      "freshness_status": "sample",
+      "gamma_regime": "mixed",
+      "implied_forward": 200.0,
+      "levels": [
+        {
+          "abs_gamma_notional": 42000000.0,
+          "call_oi": 5250,
+          "call_volume": 1125,
+          "cdf_below": 0.505,
+          "iv": 0.24,
+          "net_gamma_proxy": 0.0,
+          "put_oi": 5250,
+          "put_volume": 1125,
+          "sigma_distance": 0.0,
+          "strike": 200.0,
+          "tags": [
+            "pin_strike"
+          ],
+          "total_oi": 10500,
+          "total_volume": 2250,
+          "volcon_score": 80.0
+        },
+        {
+          "abs_gamma_notional": 26590960.0,
+          "call_oi": 1897,
+          "call_volume": 418,
+          "cdf_below": 0.3144,
+          "iv": 0.2422,
+          "net_gamma_proxy": -14146640.0,
+          "put_oi": 6210,
+          "put_volume": 1368,
+          "sigma_distance": -0.496,
+          "strike": 197.5,
+          "tags": [
+            "put_wall",
+            "support_candidate"
+          ],
+          "total_oi": 8107,
+          "total_volume": 1786,
+          "volcon_score": 67.87
+        },
+        {
+          "abs_gamma_notional": 26590960.0,
+          "call_oi": 6210,
+          "call_volume": 1368,
+          "cdf_below": 0.6924,
+          "iv": 0.2422,
+          "net_gamma_proxy": 14146640.0,
+          "put_oi": 1897,
+          "put_volume": 418,
+          "sigma_distance": 0.49,
+          "strike": 202.5,
+          "tags": [
+            "call_wall",
+            "resistance_candidate"
+          ],
+          "total_oi": 8107,
+          "total_volume": 1786,
+          "volcon_score": 67.87
+        },
+        {
+          "abs_gamma_notional": 16243200.0,
+          "call_oi": 1485,
+          "call_volume": 341,
+          "cdf_below": 0.1644,
+          "iv": 0.2445,
+          "net_gamma_proxy": -8640000.0,
+          "put_oi": 4860,
+          "put_volume": 1116,
+          "sigma_distance": -0.989,
+          "strike": 195.0,
+          "tags": [
+            "lower_tail"
+          ],
+          "total_oi": 6345,
+          "total_volume": 1457,
+          "volcon_score": 52.02
+        },
+        {
+          "abs_gamma_notional": 16243200.0,
+          "call_oi": 4860,
+          "call_volume": 1116,
+          "cdf_below": 0.8358,
+          "iv": 0.2445,
+          "net_gamma_proxy": 8640000.0,
+          "put_oi": 1485,
+          "put_volume": 341,
+          "sigma_distance": 0.965,
+          "strike": 205.0,
+          "tags": [
+            "upper_tail"
+          ],
+          "total_oi": 6345,
+          "total_volume": 1457,
+          "volcon_score": 52.02
+        },
+        {
+          "abs_gamma_notional": 8430880.0,
+          "call_oi": 1072,
+          "call_volume": 264,
+          "cdf_below": 0.0712,
+          "iv": 0.2467,
+          "net_gamma_proxy": -4485920.0,
+          "put_oi": 3510,
+          "put_volume": 864,
+          "sigma_distance": -1.48,
+          "strike": 192.5,
+          "tags": [
+            "lower_tail"
+          ],
+          "total_oi": 4582,
+          "total_volume": 1128,
+          "volcon_score": 38.28
+        },
+        {
+          "abs_gamma_notional": 8430880.0,
+          "call_oi": 3510,
+          "call_volume": 864,
+          "cdf_below": 0.9248,
+          "iv": 0.2467,
+          "net_gamma_proxy": 4485920.0,
+          "put_oi": 1072,
+          "put_volume": 264,
+          "sigma_distance": 1.425,
+          "strike": 207.5,
+          "tags": [
+            "upper_tail"
+          ],
+          "total_oi": 4582,
+          "total_volume": 1128,
+          "volcon_score": 38.28
+        }
+      ],
+      "pin_strike": {
+        "abs_gamma_notional": 42000000.0,
+        "call_oi": 5250,
+        "call_volume": 1125,
+        "cdf_below": 0.505,
+        "iv": 0.24,
+        "net_gamma_proxy": 0.0,
+        "put_oi": 5250,
+        "put_volume": 1125,
+        "sigma_distance": 0.0,
+        "strike": 200.0,
+        "tags": [
+          "pin_strike"
+        ],
+        "total_oi": 10500,
+        "total_volume": 2250,
+        "volcon_score": 80.0
+      },
+      "put_wall": {
+        "abs_gamma_notional": 26590960.0,
+        "call_oi": 1897,
+        "call_volume": 418,
+        "cdf_below": 0.3144,
+        "iv": 0.2422,
+        "net_gamma_proxy": -14146640.0,
+        "put_oi": 6210,
+        "put_volume": 1368,
+        "sigma_distance": -0.496,
+        "strike": 197.5,
+        "tags": [
+          "put_wall",
+          "support_candidate"
+        ],
+        "total_oi": 8107,
+        "total_volume": 1786,
+        "volcon_score": 67.87
+      },
+      "risk_flags": [
+        "dealer_gamma_proxy",
+        "oi_lag",
+        "sample_data"
+      ],
+      "selected_expiry": "2026-06-12",
+      "source_mode": "sample_fallback",
+      "spot": 200.0,
+      "symbol": "AAPL",
+      "warnings": [
+        "Analytics only; not investment advice, trade execution, or risk management for live orders.",
+        "Open interest is usually prior clearing data and does not prove fresh opening flow.",
+        "Dealer gamma sign is estimated from public chain data and can be wrong.",
+        "Earnings, dividends, splits, borrow pressure, macro events, and news can override strike-based mean reversion.",
+        "Negative gamma regimes can turn walls into acceleration levels rather than rejection zones.",
+        "No TRADIER_TOKEN secret is configured; this ticker uses deterministic sample data."
+      ]
+    },
+    {
+      "as_of": "2026-06-08",
+      "atm_iv": 0.2437,
+      "call_wall": {
+        "abs_gamma_notional": 153163929.6,
+        "call_oi": 6210,
+        "call_volume": 1368,
+        "cdf_below": 0.6635,
+        "iv": 0.2419,
+        "net_gamma_proxy": 81484646.4,
+        "put_oi": 1897,
+        "put_volume": 418,
+        "sigma_distance": 0.409,
+        "strike": 485.0,
+        "tags": [
+          "call_wall",
+          "resistance_candidate"
+        ],
+        "total_oi": 8107,
+        "total_volume": 1786,
+        "volcon_score": 67.87
+      },
+      "dte_days": 4,
+      "expected_move": 12.2481,
+      "freshness_status": "sample",
+      "gamma_regime": "mixed",
+      "implied_forward": 480.0,
+      "levels": [
+        {
+          "abs_gamma_notional": 241920000.0,
+          "call_oi": 5250,
+          "call_volume": 1125,
+          "cdf_below": 0.505,
+          "iv": 0.24,
+          "net_gamma_proxy": 0.0,
+          "put_oi": 5250,
+          "put_volume": 1125,
+          "sigma_distance": 0.0,
+          "strike": 480.0,
+          "tags": [
+            "pin_strike"
+          ],
+          "total_oi": 10500,
+          "total_volume": 2250,
+          "volcon_score": 80.0
+        },
+        {
+          "abs_gamma_notional": 153163929.6,
+          "call_oi": 1897,
+          "call_volume": 418,
+          "cdf_below": 0.3443,
+          "iv": 0.2419,
+          "net_gamma_proxy": -81484646.4,
+          "put_oi": 6210,
+          "put_volume": 1368,
+          "sigma_distance": -0.414,
+          "strike": 475.0,
+          "tags": [
+            "put_wall",
+            "support_candidate"
+          ],
+          "total_oi": 8107,
+          "total_volume": 1786,
+          "volcon_score": 67.87
+        },
+        {
+          "abs_gamma_notional": 153163929.6,
+          "call_oi": 6210,
+          "call_volume": 1368,
+          "cdf_below": 0.6635,
+          "iv": 0.2419,
+          "net_gamma_proxy": 81484646.4,
+          "put_oi": 1897,
+          "put_volume": 418,
+          "sigma_distance": 0.409,
+          "strike": 485.0,
+          "tags": [
+            "call_wall",
+            "resistance_candidate"
+          ],
+          "total_oi": 8107,
+          "total_volume": 1786,
+          "volcon_score": 67.87
+        },
+        {
+          "abs_gamma_notional": 93560832.0,
+          "call_oi": 1485,
+          "call_volume": 341,
+          "cdf_below": 0.2083,
+          "iv": 0.2437,
+          "net_gamma_proxy": -49766400.0,
+          "put_oi": 4860,
+          "put_volume": 1116,
+          "sigma_distance": -0.825,
+          "strike": 470.0,
+          "tags": [
+            "lower_tail"
+          ],
+          "total_oi": 6345,
+          "total_volume": 1457,
+          "volcon_score": 52.02
+        },
+        {
+          "abs_gamma_notional": 93560832.0,
+          "call_oi": 4860,
+          "call_volume": 1116,
+          "cdf_below": 0.7941,
+          "iv": 0.2437,
+          "net_gamma_proxy": 49766400.0,
+          "put_oi": 1485,
+          "put_volume": 341,
+          "sigma_distance": 0.808,
+          "strike": 490.0,
+          "tags": [
+            "upper_tail"
+          ],
+          "total_oi": 6345,
+          "total_volume": 1457,
+          "volcon_score": 52.02
+        },
+        {
+          "abs_gamma_notional": 48561868.8,
+          "call_oi": 1072,
+          "call_volume": 264,
+          "cdf_below": 0.1109,
+          "iv": 0.2456,
+          "net_gamma_proxy": -25838899.2,
+          "put_oi": 3510,
+          "put_volume": 864,
+          "sigma_distance": -1.235,
+          "strike": 465.0,
+          "tags": [
+            "lower_tail"
+          ],
+          "total_oi": 4582,
+          "total_volume": 1128,
+          "volcon_score": 38.28
+        },
+        {
+          "abs_gamma_notional": 48561868.8,
+          "call_oi": 3510,
+          "call_volume": 864,
+          "cdf_below": 0.8868,
+          "iv": 0.2456,
+          "net_gamma_proxy": 25838899.2,
+          "put_oi": 1072,
+          "put_volume": 264,
+          "sigma_distance": 1.197,
+          "strike": 495.0,
+          "tags": [
+            "upper_tail"
+          ],
+          "total_oi": 4582,
+          "total_volume": 1128,
+          "volcon_score": 38.28
+        }
+      ],
+      "pin_strike": {
+        "abs_gamma_notional": 241920000.0,
+        "call_oi": 5250,
+        "call_volume": 1125,
+        "cdf_below": 0.505,
+        "iv": 0.24,
+        "net_gamma_proxy": 0.0,
+        "put_oi": 5250,
+        "put_volume": 1125,
+        "sigma_distance": 0.0,
+        "strike": 480.0,
+        "tags": [
+          "pin_strike"
+        ],
+        "total_oi": 10500,
+        "total_volume": 2250,
+        "volcon_score": 80.0
+      },
+      "put_wall": {
+        "abs_gamma_notional": 153163929.6,
+        "call_oi": 1897,
+        "call_volume": 418,
+        "cdf_below": 0.3443,
+        "iv": 0.2419,
+        "net_gamma_proxy": -81484646.4,
+        "put_oi": 6210,
+        "put_volume": 1368,
+        "sigma_distance": -0.414,
+        "strike": 475.0,
+        "tags": [
+          "put_wall",
+          "support_candidate"
+        ],
+        "total_oi": 8107,
+        "total_volume": 1786,
+        "volcon_score": 67.87
+      },
+      "risk_flags": [
+        "dealer_gamma_proxy",
+        "oi_lag",
+        "sample_data"
+      ],
+      "selected_expiry": "2026-06-12",
+      "source_mode": "sample_fallback",
+      "spot": 480.0,
+      "symbol": "MSFT",
+      "warnings": [
+        "Analytics only; not investment advice, trade execution, or risk management for live orders.",
+        "Open interest is usually prior clearing data and does not prove fresh opening flow.",
+        "Dealer gamma sign is estimated from public chain data and can be wrong.",
+        "Earnings, dividends, splits, borrow pressure, macro events, and news can override strike-based mean reversion.",
+        "Negative gamma regimes can turn walls into acceleration levels rather than rejection zones.",
+        "No TRADIER_TOKEN secret is configured; this ticker uses deterministic sample data."
+      ]
+    },
+    {
+      "as_of": "2026-06-08",
+      "atm_iv": 0.2462,
+      "call_wall": {
+        "abs_gamma_notional": 13976873.35,
+        "call_oi": 6210,
+        "call_volume": 1368,
+        "cdf_below": 0.7531,
+        "iv": 0.2431,
+        "net_gamma_proxy": 7435827.65,
+        "put_oi": 1897,
+        "put_volume": 418,
+        "sigma_distance": 0.672,
+        "strike": 147.5,
+        "tags": [
+          "call_wall",
+          "resistance_candidate",
+          "upper_tail"
+        ],
+        "total_oi": 8107,
+        "total_volume": 1786,
+        "volcon_score": 67.87
+      },
+      "dte_days": 4,
+      "expected_move": 3.7372,
+      "freshness_status": "sample",
+      "gamma_regime": "mixed",
+      "implied_forward": 145.0,
+      "levels": [
+        {
+          "abs_gamma_notional": 22076250.0,
+          "call_oi": 5250,
+          "call_volume": 1125,
+          "cdf_below": 0.505,
+          "iv": 0.24,
+          "net_gamma_proxy": 0.0,
+          "put_oi": 5250,
+          "put_volume": 1125,
+          "sigma_distance": 0.0,
+          "strike": 145.0,
+          "tags": [
+            "pin_strike"
+          ],
+          "total_oi": 10500,
+          "total_volume": 2250,
+          "volcon_score": 80.0
+        },
+        {
+          "abs_gamma_notional": 13976873.35,
+          "call_oi": 1897,
+          "call_volume": 418,
+          "cdf_below": 0.2512,
+          "iv": 0.2431,
+          "net_gamma_proxy": -7435827.65,
+          "put_oi": 6210,
+          "put_volume": 1368,
+          "sigma_distance": -0.683,
+          "strike": 142.5,
+          "tags": [
+            "put_wall",
+            "support_candidate"
+          ],
+          "total_oi": 8107,
+          "total_volume": 1786,
+          "volcon_score": 67.87
+        },
+        {
+          "abs_gamma_notional": 13976873.35,
+          "call_oi": 6210,
+          "call_volume": 1368,
+          "cdf_below": 0.7531,
+          "iv": 0.2431,
+          "net_gamma_proxy": 7435827.65,
+          "put_oi": 1897,
+          "put_volume": 418,
+          "sigma_distance": 0.672,
+          "strike": 147.5,
+          "tags": [
+            "call_wall",
+            "resistance_candidate",
+            "upper_tail"
+          ],
+          "total_oi": 8107,
+          "total_volume": 1786,
+          "volcon_score": 67.87
+        },
+        {
+          "abs_gamma_notional": 8537832.0,
+          "call_oi": 1485,
+          "call_volume": 341,
+          "cdf_below": 0.0887,
+          "iv": 0.2462,
+          "net_gamma_proxy": -4541400.0,
+          "put_oi": 4860,
+          "put_volume": 1116,
+          "sigma_distance": -1.361,
+          "strike": 140.0,
+          "tags": [
+            "lower_tail"
+          ],
+          "total_oi": 6345,
+          "total_volume": 1457,
+          "volcon_score": 52.02
+        },
+        {
+          "abs_gamma_notional": 8537832.0,
+          "call_oi": 4860,
+          "call_volume": 1116,
+          "cdf_below": 0.9079,
+          "iv": 0.2462,
+          "net_gamma_proxy": 4541400.0,
+          "put_oi": 1485,
+          "put_volume": 341,
+          "sigma_distance": 1.315,
+          "strike": 150.0,
+          "tags": [
+            "upper_tail"
+          ],
+          "total_oi": 6345,
+          "total_volume": 1457,
+          "volcon_score": 52.02
+        },
+        {
+          "abs_gamma_notional": 4431481.3,
+          "call_oi": 1072,
+          "call_volume": 264,
+          "cdf_below": 0.0216,
+          "iv": 0.2493,
+          "net_gamma_proxy": -2357911.7,
+          "put_oi": 3510,
+          "put_volume": 864,
+          "sigma_distance": -2.035,
+          "strike": 137.5,
+          "tags": [
+            "lower_tail"
+          ],
+          "total_oi": 4582,
+          "total_volume": 1128,
+          "volcon_score": 38.28
+        },
+        {
+          "abs_gamma_notional": 4431481.3,
+          "call_oi": 3510,
+          "call_volume": 864,
+          "cdf_below": 0.9741,
+          "iv": 0.2493,
+          "net_gamma_proxy": 2357911.7,
+          "put_oi": 1072,
+          "put_volume": 264,
+          "sigma_distance": 1.932,
+          "strike": 152.5,
+          "tags": [
+            "upper_tail"
+          ],
+          "total_oi": 4582,
+          "total_volume": 1128,
+          "volcon_score": 38.28
+        }
+      ],
+      "pin_strike": {
+        "abs_gamma_notional": 22076250.0,
+        "call_oi": 5250,
+        "call_volume": 1125,
+        "cdf_below": 0.505,
+        "iv": 0.24,
+        "net_gamma_proxy": 0.0,
+        "put_oi": 5250,
+        "put_volume": 1125,
+        "sigma_distance": 0.0,
+        "strike": 145.0,
+        "tags": [
+          "pin_strike"
+        ],
+        "total_oi": 10500,
+        "total_volume": 2250,
+        "volcon_score": 80.0
+      },
+      "put_wall": {
+        "abs_gamma_notional": 13976873.35,
+        "call_oi": 1897,
+        "call_volume": 418,
+        "cdf_below": 0.2512,
+        "iv": 0.2431,
+        "net_gamma_proxy": -7435827.65,
+        "put_oi": 6210,
+        "put_volume": 1368,
+        "sigma_distance": -0.683,
+        "strike": 142.5,
+        "tags": [
+          "put_wall",
+          "support_candidate"
+        ],
+        "total_oi": 8107,
+        "total_volume": 1786,
+        "volcon_score": 67.87
+      },
+      "risk_flags": [
+        "dealer_gamma_proxy",
+        "oi_lag",
+        "sample_data"
+      ],
+      "selected_expiry": "2026-06-12",
+      "source_mode": "sample_fallback",
+      "spot": 145.0,
+      "symbol": "NVDA",
+      "warnings": [
+        "Analytics only; not investment advice, trade execution, or risk management for live orders.",
+        "Open interest is usually prior clearing data and does not prove fresh opening flow.",
+        "Dealer gamma sign is estimated from public chain data and can be wrong.",
+        "Earnings, dividends, splits, borrow pressure, macro events, and news can override strike-based mean reversion.",
+        "Negative gamma regimes can turn walls into acceleration levels rather than rejection zones.",
+        "No TRADIER_TOKEN secret is configured; this ticker uses deterministic sample data."
+      ]
+    },
+    {
+      "as_of": "2026-06-08",
+      "atm_iv": 0.2426,
+      "call_wall": {
+        "abs_gamma_notional": 76847874.4,
+        "call_oi": 6210,
+        "call_volume": 1368,
+        "cdf_below": 0.6189,
+        "iv": 0.2413,
+        "net_gamma_proxy": 40883789.6,
+        "put_oi": 1897,
+        "put_volume": 418,
+        "sigma_distance": 0.29,
+        "strike": 342.5,
+        "tags": [
+          "call_wall",
+          "resistance_candidate"
+        ],
+        "total_oi": 8107,
+        "total_volume": 1786,
+        "volcon_score": 67.87
+      },
+      "dte_days": 4,
+      "expected_move": 8.6365,
+      "freshness_status": "sample",
+      "gamma_regime": "mixed",
+      "implied_forward": 340.0,
+      "levels": [
+        {
+          "abs_gamma_notional": 121380000.0,
+          "call_oi": 5250,
+          "call_volume": 1125,
+          "cdf_below": 0.505,
+          "iv": 0.24,
+          "net_gamma_proxy": 0.0,
+          "put_oi": 5250,
+          "put_volume": 1125,
+          "sigma_distance": 0.0,
+          "strike": 340.0,
+          "tags": [
+            "pin_strike"
+          ],
+          "total_oi": 10500,
+          "total_volume": 2250,
+          "volcon_score": 80.0
+        },
+        {
+          "abs_gamma_notional": 76847874.4,
+          "call_oi": 1897,
+          "call_volume": 418,
+          "cdf_below": 0.3899,
+          "iv": 0.2413,
+          "net_gamma_proxy": -40883789.6,
+          "put_oi": 6210,
+          "put_volume": 1368,
+          "sigma_distance": -0.292,
+          "strike": 337.5,
+          "tags": [
+            "put_wall",
+            "support_candidate"
+          ],
+          "total_oi": 8107,
+          "total_volume": 1786,
+          "volcon_score": 67.87
+        },
+        {
+          "abs_gamma_notional": 76847874.4,
+          "call_oi": 6210,
+          "call_volume": 1368,
+          "cdf_below": 0.6189,
+          "iv": 0.2413,
+          "net_gamma_proxy": 40883789.6,
+          "put_oi": 1897,
+          "put_volume": 418,
+          "sigma_distance": 0.29,
+          "strike": 342.5,
+          "tags": [
+            "call_wall",
+            "resistance_candidate"
+          ],
+          "total_oi": 8107,
+          "total_volume": 1786,
+          "volcon_score": 67.87
+        },
+        {
+          "abs_gamma_notional": 46942848.0,
+          "call_oi": 1485,
+          "call_volume": 341,
+          "cdf_below": 0.2842,
+          "iv": 0.2426,
+          "net_gamma_proxy": -24969600.0,
+          "put_oi": 4860,
+          "put_volume": 1116,
+          "sigma_distance": -0.583,
+          "strike": 335.0,
+          "tags": [],
+          "total_oi": 6345,
+          "total_volume": 1457,
+          "volcon_score": 52.02
+        },
+        {
+          "abs_gamma_notional": 46942848.0,
+          "call_oi": 4860,
+          "call_volume": 1116,
+          "cdf_below": 0.7215,
+          "iv": 0.2426,
+          "net_gamma_proxy": 24969600.0,
+          "put_oi": 1485,
+          "put_volume": 341,
+          "sigma_distance": 0.575,
+          "strike": 345.0,
+          "tags": [],
+          "total_oi": 6345,
+          "total_volume": 1457,
+          "volcon_score": 52.02
+        },
+        {
+          "abs_gamma_notional": 24365243.2,
+          "call_oi": 1072,
+          "call_volume": 264,
+          "cdf_below": 0.1947,
+          "iv": 0.244,
+          "net_gamma_proxy": -12964308.8,
+          "put_oi": 3510,
+          "put_volume": 864,
+          "sigma_distance": -0.873,
+          "strike": 332.5,
+          "tags": [
+            "lower_tail"
+          ],
+          "total_oi": 4582,
+          "total_volume": 1128,
+          "volcon_score": 38.28
+        },
+        {
+          "abs_gamma_notional": 24365243.2,
+          "call_oi": 3510,
+          "call_volume": 864,
+          "cdf_below": 0.8071,
+          "iv": 0.244,
+          "net_gamma_proxy": 12964308.8,
+          "put_oi": 1072,
+          "put_volume": 264,
+          "sigma_distance": 0.854,
+          "strike": 347.5,
+          "tags": [
+            "upper_tail"
+          ],
+          "total_oi": 4582,
+          "total_volume": 1128,
+          "volcon_score": 38.28
+        }
+      ],
+      "pin_strike": {
+        "abs_gamma_notional": 121380000.0,
+        "call_oi": 5250,
+        "call_volume": 1125,
+        "cdf_below": 0.505,
+        "iv": 0.24,
+        "net_gamma_proxy": 0.0,
+        "put_oi": 5250,
+        "put_volume": 1125,
+        "sigma_distance": 0.0,
+        "strike": 340.0,
+        "tags": [
+          "pin_strike"
+        ],
+        "total_oi": 10500,
+        "total_volume": 2250,
+        "volcon_score": 80.0
+      },
+      "put_wall": {
+        "abs_gamma_notional": 76847874.4,
+        "call_oi": 1897,
+        "call_volume": 418,
+        "cdf_below": 0.3899,
+        "iv": 0.2413,
+        "net_gamma_proxy": -40883789.6,
+        "put_oi": 6210,
+        "put_volume": 1368,
+        "sigma_distance": -0.292,
+        "strike": 337.5,
+        "tags": [
+          "put_wall",
+          "support_candidate"
+        ],
+        "total_oi": 8107,
+        "total_volume": 1786,
+        "volcon_score": 67.87
+      },
+      "risk_flags": [
+        "dealer_gamma_proxy",
+        "oi_lag",
+        "sample_data"
+      ],
+      "selected_expiry": "2026-06-12",
+      "source_mode": "sample_fallback",
+      "spot": 340.0,
+      "symbol": "TSLA",
+      "warnings": [
+        "Analytics only; not investment advice, trade execution, or risk management for live orders.",
+        "Open interest is usually prior clearing data and does not prove fresh opening flow.",
+        "Dealer gamma sign is estimated from public chain data and can be wrong.",
+        "Earnings, dividends, splits, borrow pressure, macro events, and news can override strike-based mean reversion.",
+        "Negative gamma regimes can turn walls into acceleration levels rather than rejection zones.",
+        "No TRADIER_TOKEN secret is configured; this ticker uses deterministic sample data."
+      ]
+    }
+  ],
+  "timezone": "America/New_York",
+  "universe": [
+    "SPY",
+    "QQQ",
+    "IWM",
+    "AAPL",
+    "MSFT",
+    "NVDA",
+    "TSLA"
+  ]
+}

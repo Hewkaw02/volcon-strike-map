@@ -1,0 +1,7 @@
+{
+  "tickers": ["SPY", "QQQ", "IWM", "AAPL", "MSFT", "NVDA", "TSLA"],
+  "timezone": "America/New_York",
+  "expiry_rule": "nearest_non_expired",
+  "max_levels_per_ticker": 15
+}
+

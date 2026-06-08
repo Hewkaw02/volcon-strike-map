@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>VolCon Strike Map</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <div>
+          <h1>VolCon Strike Map</h1>
+          <p>Daily nearest-expiry options analytics</p>
+        </div>
+        <div class="status-stack" aria-live="polite">
+          <span id="freshnessBadge" class="badge badge-neutral">Loading</span>
+          <span id="generatedAt" class="timestamp">Waiting for data</span>
+        </div>
+      </header>
+
+      <section id="globalNotice" class="notice" hidden></section>
+
+      <nav id="tickerTabs" class="ticker-tabs" aria-label="Ticker selector"></nav>
+
+      <section class="dashboard-grid">
+        <div class="primary-column">
+          <section id="summaryGrid" class="summary-grid" aria-label="Ticker summary"></section>
+          <section class="panel level-panel">
+            <div class="panel-header">
+              <div>
+                <h2>Strike Level Map</h2>
+                <p id="levelSubtitle">Select a ticker</p>
+              </div>
+              <span id="gammaBadge" class="badge badge-neutral">Gamma regime</span>
+            </div>
+            <div id="levelMap" class="level-map" aria-label="Option concentration level map"></div>
+          </section>
+        </div>
+
+        <aside class="panel risk-panel" aria-label="Risk warnings">
+          <div class="panel-header compact">
+            <h2>Risk</h2>
+            <span id="riskCount" class="badge badge-warning">0 flags</span>
+          </div>
+          <ul id="riskList" class="risk-list"></ul>
+        </aside>
+      </section>
+
+      <section class="panel table-panel">
+        <div class="panel-header">
+          <div>
+            <h2>Top Strike Concentrations</h2>
+            <p>Sorted by VolCon score for the selected expiry</p>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Strike</th>
+                <th>CDF</th>
+                <th>Score</th>
+                <th>OI</th>
+                <th>Volume</th>
+                <th>Gamma $</th>
+                <th>Tags</th>
+              </tr>
+            </thead>
+            <tbody id="strikeRows"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="methodology-grid">
+        <article class="panel">
+          <h2>Methodology</h2>
+          <dl id="methodologyList" class="method-list"></dl>
+        </article>
+        <article class="panel">
+          <h2>References</h2>
+          <ul id="referenceList" class="reference-list"></ul>
+        </article>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
+
