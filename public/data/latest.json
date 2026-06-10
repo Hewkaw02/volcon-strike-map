@@ -3,7 +3,7 @@
   "expiry_rule": "nearest_non_expired",
   "failures": [],
   "freshness_status": "sample",
-  "generated_at": "2026-06-10T15:19:29.742682-04:00",
+  "generated_at": "2026-06-10T17:34:18.222386-04:00",
   "methodology": {
     "cdf": "CDF below strike is estimated from Black-Scholes d2 under the option-implied distribution proxy.",
     "forward": "ATM put-call parity proxy: F = K + call_mid - put_mid; falls back to spot if unavailable.",
