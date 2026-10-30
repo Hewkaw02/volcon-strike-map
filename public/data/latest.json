@@ -1,9 +1,9 @@
 {
-  "as_of": "2026-10-29",
+  "as_of": "2026-10-30",
   "expiry_rule": "nearest_non_expired",
   "failures": [],
   "freshness_status": "sample",
-  "generated_at": "2026-10-29T22:04:50.909162-04:00",
+  "generated_at": "2026-10-30T14:22:05.474825-04:00",
   "methodology": {
     "cdf": "CDF below strike is estimated from Black-Scholes d2 under the option-implied distribution proxy.",
     "forward": "ATM put-call parity proxy: F = K + call_mid - put_mid; falls back to spot if unavailable.",
@@ -40,7 +40,7 @@
   "source_mode": "sample_fallback",
   "tickers": [
     {
-      "as_of": "2026-10-29",
+      "as_of": "2026-10-30",
       "atm_iv": 0.243,
       "call_wall": {
         "abs_gamma_notional": 239318640.0,
@@ -61,7 +61,7 @@
         "total_volume": 1786,
         "volcon_score": 67.87
       },
-      "dte_days": 1,
+      "dte_days": 0,
       "expected_move": 7.6315,
       "freshness_status": "sample",
       "gamma_regime": "mixed",
@@ -1138,6 +1138,7 @@
       "risk_flags": [
         "dealer_gamma_proxy",
         "oi_lag",
+        "zero_dte",
         "sample_data"
       ],
       "selected_expiry": "2026-10-30",
@@ -1150,11 +1151,12 @@
         "Dealer gamma sign is estimated from public chain data and can be wrong.",
         "Earnings, dividends, splits, borrow pressure, macro events, and news can override strike-based mean reversion.",
         "Negative gamma regimes can turn walls into acceleration levels rather than rejection zones.",
+        "Selected expiry is 0DTE; pinning and breakout behavior can change rapidly intraday.",
         "No TRADIER_TOKEN secret is configured; this ticker uses deterministic sample data."
       ]
     },
     {
-      "as_of": "2026-10-29",
+      "as_of": "2026-10-30",
       "atm_iv": 0.2434,
       "call_wall": {
         "abs_gamma_notional": 186735016.6,
@@ -1176,7 +1178,7 @@
         "total_volume": 1786,
         "volcon_score": 67.87
       },
-      "dte_days": 1,
+      "dte_days": 0,
       "expected_move": 6.7522,
       "freshness_status": "sample",
       "gamma_regime": "mixed",
@@ -2256,6 +2258,7 @@
       "risk_flags": [
         "dealer_gamma_proxy",
         "oi_lag",
+        "zero_dte",
         "sample_data"
       ],
       "selected_expiry": "2026-10-30",
@@ -2268,11 +2271,12 @@
         "Dealer gamma sign is estimated from public chain data and can be wrong.",
         "Earnings, dividends, splits, borrow pressure, macro events, and news can override strike-based mean reversion.",
         "Negative gamma regimes can turn walls into acceleration levels rather than rejection zones.",
+        "Selected expiry is 0DTE; pinning and breakout behavior can change rapidly intraday.",
         "No TRADIER_TOKEN secret is configured; this ticker uses deterministic sample data."
       ]
     },
     {
-      "as_of": "2026-10-29",
+      "as_of": "2026-10-30",
       "atm_iv": 0.2443,
       "call_wall": {
         "abs_gamma_notional": 29316533.4,
@@ -2294,7 +2298,7 @@
         "total_volume": 1786,
         "volcon_score": 67.87
       },
-      "dte_days": 1,
+      "dte_days": 0,
       "expected_move": 2.6852,
       "freshness_status": "sample",
       "gamma_regime": "mixed",
@@ -3374,6 +3378,7 @@
       "risk_flags": [
         "dealer_gamma_proxy",
         "oi_lag",
+        "zero_dte",
         "sample_data"
       ],
       "selected_expiry": "2026-10-30",
@@ -3386,11 +3391,12 @@
         "Dealer gamma sign is estimated from public chain data and can be wrong.",
         "Earnings, dividends, splits, borrow pressure, macro events, and news can override strike-based mean reversion.",
         "Negative gamma regimes can turn walls into acceleration levels rather than rejection zones.",
+        "Selected expiry is 0DTE; pinning and breakout behavior can change rapidly intraday.",
         "No TRADIER_TOKEN secret is configured; this ticker uses deterministic sample data."
       ]
     },
     {
-      "as_of": "2026-10-29",
+      "as_of": "2026-10-30",
       "atm_iv": 0.2445,
       "call_wall": {
         "abs_gamma_notional": 26590960.0,
@@ -3412,7 +3418,7 @@
         "total_volume": 1786,
         "volcon_score": 67.87
       },
-      "dte_days": 1,
+      "dte_days": 0,
       "expected_move": 2.5595,
       "freshness_status": "sample",
       "gamma_regime": "mixed",
@@ -4492,6 +4498,7 @@
       "risk_flags": [
         "dealer_gamma_proxy",
         "oi_lag",
+        "zero_dte",
         "sample_data"
       ],
       "selected_expiry": "2026-10-30",
@@ -4504,11 +4511,12 @@
         "Dealer gamma sign is estimated from public chain data and can be wrong.",
         "Earnings, dividends, splits, borrow pressure, macro events, and news can override strike-based mean reversion.",
         "Negative gamma regimes can turn walls into acceleration levels rather than rejection zones.",
+        "Selected expiry is 0DTE; pinning and breakout behavior can change rapidly intraday.",
         "No TRADIER_TOKEN secret is configured; this ticker uses deterministic sample data."
       ]
     },
     {
-      "as_of": "2026-10-29",
+      "as_of": "2026-10-30",
       "atm_iv": 0.2437,
       "call_wall": {
         "abs_gamma_notional": 153163929.6,
@@ -4530,7 +4538,7 @@
         "total_volume": 1786,
         "volcon_score": 67.87
       },
-      "dte_days": 1,
+      "dte_days": 0,
       "expected_move": 6.1241,
       "freshness_status": "sample",
       "gamma_regime": "mixed",
@@ -5610,6 +5618,7 @@
       "risk_flags": [
         "dealer_gamma_proxy",
         "oi_lag",
+        "zero_dte",
         "sample_data"
       ],
       "selected_expiry": "2026-10-30",
@@ -5622,11 +5631,12 @@
         "Dealer gamma sign is estimated from public chain data and can be wrong.",
         "Earnings, dividends, splits, borrow pressure, macro events, and news can override strike-based mean reversion.",
         "Negative gamma regimes can turn walls into acceleration levels rather than rejection zones.",
+        "Selected expiry is 0DTE; pinning and breakout behavior can change rapidly intraday.",
         "No TRADIER_TOKEN secret is configured; this ticker uses deterministic sample data."
       ]
     },
     {
-      "as_of": "2026-10-29",
+      "as_of": "2026-10-30",
       "atm_iv": 0.2462,
       "call_wall": {
         "abs_gamma_notional": 13976873.35,
@@ -5648,7 +5658,7 @@
         "total_volume": 1786,
         "volcon_score": 67.87
       },
-      "dte_days": 1,
+      "dte_days": 0,
       "expected_move": 1.8686,
       "freshness_status": "sample",
       "gamma_regime": "mixed",
@@ -6728,6 +6738,7 @@
       "risk_flags": [
         "dealer_gamma_proxy",
         "oi_lag",
+        "zero_dte",
         "sample_data"
       ],
       "selected_expiry": "2026-10-30",
@@ -6740,11 +6751,12 @@
         "Dealer gamma sign is estimated from public chain data and can be wrong.",
         "Earnings, dividends, splits, borrow pressure, macro events, and news can override strike-based mean reversion.",
         "Negative gamma regimes can turn walls into acceleration levels rather than rejection zones.",
+        "Selected expiry is 0DTE; pinning and breakout behavior can change rapidly intraday.",
         "No TRADIER_TOKEN secret is configured; this ticker uses deterministic sample data."
       ]
     },
     {
-      "as_of": "2026-10-29",
+      "as_of": "2026-10-30",
       "atm_iv": 0.2426,
       "call_wall": {
         "abs_gamma_notional": 76847874.4,
@@ -6765,7 +6777,7 @@
         "total_volume": 1786,
         "volcon_score": 67.87
       },
-      "dte_days": 1,
+      "dte_days": 0,
       "expected_move": 4.3182,
       "freshness_status": "sample",
       "gamma_regime": "mixed",
@@ -7842,6 +7854,7 @@
       "risk_flags": [
         "dealer_gamma_proxy",
         "oi_lag",
+        "zero_dte",
         "sample_data"
       ],
       "selected_expiry": "2026-10-30",
@@ -7854,6 +7867,7 @@
         "Dealer gamma sign is estimated from public chain data and can be wrong.",
         "Earnings, dividends, splits, borrow pressure, macro events, and news can override strike-based mean reversion.",
         "Negative gamma regimes can turn walls into acceleration levels rather than rejection zones.",
+        "Selected expiry is 0DTE; pinning and breakout behavior can change rapidly intraday.",
         "No TRADIER_TOKEN secret is configured; this ticker uses deterministic sample data."
       ]
     }
